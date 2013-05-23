@@ -1,0 +1,4 @@
+%span
+ a click="logout" logout
+
+= outlet

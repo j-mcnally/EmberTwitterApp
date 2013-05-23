@@ -1,0 +1,9 @@
+each tweet in tweets
+  %div
+    %div
+      %b
+        = tweet.user.name
+      |  was all like:
+    %div
+      = tweet.text
+    %br

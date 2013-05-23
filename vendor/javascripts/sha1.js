@@ -1,0 +1,1 @@
+../../packages/codebird-js/sha1.js
