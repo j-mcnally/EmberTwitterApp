@@ -16,12 +16,8 @@
   window.config.twitter = {
     key: "CDkkBdSwg0HrkX8TUImobQ",
     secret: "IceV47BwFWWKNeSsoqOacBvGhJYKgPuY593qDvjto",
-    twitter_url: "embertweets.com/twitter"
+    twitter_url: "tweets.kohsrv.net/twitter"
   };
-
-  if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
-    window.config.twitter.twitter_url = "api.twitter.com";
-  }
 
 }).call(this);
 /**
@@ -1494,6 +1490,10 @@ window.twitter =
       var _this = this;
       return twitter.__call("statuses_homeTimeline", function(reply) {
         if (reply['errors'] == null) {
+          reply = _.map(reply, function(item) {
+            item.text = twttr.txt.autoLink(item.text);
+            return item;
+          });
           return _this.set('tweets', reply);
         } else {
           return _this.set('tweets', [
@@ -1551,6 +1551,19 @@ window.twitter =
 
   App.LoginView = Ember.View.extend({
     templateName: "application/login"
+  });
+
+}).call(this);
+(function() {
+
+  App.TweetList = Ember.VirtualListView.extend({
+    height: 500,
+    width: 500,
+    elementWidth: 500,
+    rowHeight: 100,
+    itemViewClass: Ember.ListItemView.extend({
+      templateName: "application/tweets/components/tweet_item"
+    })
   });
 
 }).call(this);
@@ -1636,39 +1649,40 @@ helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   return buffer;
   
 });
-Ember.TEMPLATES["application/tweets/index"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+Ember.TEMPLATES["application/tweets/components/tweet_item"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [2,'>= 1.0.0-rc.3'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
-  var stack1, hashTypes, escapeExpression=this.escapeExpression, self=this;
+  var buffer = '', stack1, hashTypes, escapeExpression=this.escapeExpression;
 
-function program1(depth0,data) {
-  
-  var buffer = '', hashTypes;
-  data.buffer.push("<div><div><b>");
+
+  data.buffer.push("<div class=\"avatar\"><img ");
+  hashTypes = {'src': "STRING"};
+  data.buffer.push(escapeExpression(helpers.bindAttr.call(depth0, {hash:{
+    'src': ("user.profile_image_url_https")
+  },contexts:[],types:[],hashTypes:hashTypes,data:data})));
+  data.buffer.push(" /></div><div><b>");
   hashTypes = {};
   data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "user.name", {hash:{},contexts:[depth0],types:["ID"],hashTypes:hashTypes,data:data})));
   data.buffer.push("</b> was all like:</div><div>");
-  hashTypes = {};
-  data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "text", {hash:{},contexts:[depth0],types:["ID"],hashTypes:hashTypes,data:data})));
-  data.buffer.push("</div><br /></div>");
-  return buffer;
-  }
-
-function program3(depth0,data) {
-  
-  var buffer = '';
-  return buffer;
-  }
-
-  hashTypes = {'contentBinding': "STRING",'height': "INTEGER",'rowHeight': "INTEGER",'width': "INTEGER"};
-  stack1 = helpers.view.call(depth0, "Ember.ListView", {hash:{
-    'contentBinding': ("controller.tweets"),
-    'height': (500),
-    'rowHeight': (50),
-    'width': (500)
-  },inverse:self.program(3, program3, data),fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],hashTypes:hashTypes,data:data});
+  hashTypes = {'unescaped': "STRING"};
+  stack1 = helpers._triageMustache.call(depth0, "text", {hash:{
+    'unescaped': ("true")
+  },contexts:[depth0],types:["ID"],hashTypes:hashTypes,data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  else { data.buffer.push(''); }
+  data.buffer.push("</div>");
+  return buffer;
+  
+});
+Ember.TEMPLATES["application/tweets/index"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+this.compilerInfo = [2,'>= 1.0.0-rc.3'];
+helpers = helpers || Ember.Handlebars.helpers; data = data || {};
+  var hashTypes, escapeExpression=this.escapeExpression;
+
+
+  hashTypes = {'contentBinding': "STRING"};
+  data.buffer.push(escapeExpression(helpers.view.call(depth0, "App.TweetList", {hash:{
+    'contentBinding': ("tweets")
+  },contexts:[depth0],types:["ID"],hashTypes:hashTypes,data:data})));
   
 });
 Ember.TEMPLATES["application/tweets/new"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
