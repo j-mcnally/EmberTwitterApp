@@ -1,0 +1,8 @@
+%div class="avatar"
+  img src=user.profile_image_url_https
+%div
+  %b
+    = user.name
+  |  was all like:
+%div
+  == text

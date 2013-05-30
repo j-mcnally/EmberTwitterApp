@@ -1,0 +1,8 @@
+/* line 1, /Users/justin/Projects/embertweets/source/stylesheets/ember-list.css.scss */
+.ember-list-view {
+  overflow: auto;
+  position: relative; }
+
+/* line 5, /Users/justin/Projects/embertweets/source/stylesheets/ember-list.css.scss */
+.ember-list-item-view {
+  position: absolute; }
