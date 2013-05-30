@@ -19,4 +19,5 @@
 #= require "Scroller"
 #= require "EasyScroller"
 #= require "list-view"
+#= require "twitter-text"
 #= require "./main"

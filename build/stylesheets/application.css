@@ -5814,3 +5814,12 @@ a.label:hover, a.label:focus, a.badge:hover, a.badge:focus {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box; }
+
+/* line 1, /Users/justin/Projects/embertweets/source/stylesheets/ember-list.css.scss */
+.ember-list-view {
+  overflow: auto;
+  position: relative; }
+
+/* line 5, /Users/justin/Projects/embertweets/source/stylesheets/ember-list.css.scss */
+.ember-list-item-view {
+  position: absolute; }

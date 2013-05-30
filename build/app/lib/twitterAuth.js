@@ -145,6 +145,11 @@
         }
       });
     },
+    logout: function() {
+      $.jStorage.set('oauth_token');
+      $.jStorage.set('oauth_token_secret');
+      return document.location = '/';
+    },
     login: function() {
       var authHeader, request_body,
         _this = this;
